@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
+    alias(libs.plugins.ksp) // KSP for Room codegen
+    alias(libs.plugins.room) // Room Gradle plugin (enables schema tasks)
 }
 
 android {
@@ -47,6 +47,7 @@ android {
 }
 
 room {
+    // JSON files will be written here at build time
     schemaDirectory("$projectDir/schemas")
 }
 

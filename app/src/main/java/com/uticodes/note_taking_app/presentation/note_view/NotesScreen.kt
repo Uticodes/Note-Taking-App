@@ -3,6 +3,7 @@ package com.uticodes.note_taking_app.presentation.note_view
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.uticodes.note_taking_app.presentation.NoteCard
@@ -53,8 +55,10 @@ fun NotesScreen(
             TopAppBar(
                 title = { Text("My Notes") },
                 actions = {
-                    IconButton(onClick = viewModel::deleteAllNotes) {
-                        Icon(Icons.Default.Delete, contentDescription = "Delete All Notes")
+                    if(notes.isNotEmpty()) {
+                        IconButton(onClick = viewModel::deleteAllNotes) {
+                            Icon(Icons.Default.Delete, contentDescription = "Delete All Notes")
+                        }
                     }
                 }
             )
@@ -72,10 +76,15 @@ fun NotesScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             if (notes.isEmpty()) {
-                Text(
-                    text = "No notes yet. Click the + button to add one!",
-                    modifier = Modifier.padding(16.dp)
-                )
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "No notes yet. Click the + button to add one!",
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
             } else {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
