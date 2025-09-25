@@ -58,14 +58,14 @@ class NoteDetailViewModel(
 
     fun saveNote(onNavigateBack: () -> Unit) {
         viewModelScope.launch {
-            val t = _title.value.trim()
-            val c = _content.value.trim()
-            if (t.isEmpty()) return@launch
+            val title = _title.value.trim()
+            val content = _content.value.trim()
+            if (title.isEmpty()) return@launch
 
             val model = NoteModel(
                 id = if (noteId > 0) noteId else 0,
-                title = t,
-                content = c,
+                title = title,
+                content = content,
                 timestamp = System.currentTimeMillis()
             )
 
