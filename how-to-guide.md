@@ -22,7 +22,7 @@ Room is Android’s official persistence library built on top of SQLite. It simp
 - Managed state using **ViewModel** and **Flow**.
 - Added **navigation** between screens.
 
-# **What you will need**
+## **What you will need**
 
 - Install the latest **stable version** of Android Studio with Jetpack Compose templates enabled.
 - Kotlin 1.9+ and Compose Compiler.
