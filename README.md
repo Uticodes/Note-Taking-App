@@ -1,46 +1,53 @@
 # Build a Simple Note-Taking App in Jetpack Compose with Room Persistence
 
+If you are an Android developer struggling with XML and heavy boilerplate, or simply looking to learn Jetpack Compose and integrate Room into your project, this guide is your perfect starting point.
 This step-by-step guide walks you through building a simple N**ote-Taking app** using [**Jetpack Compose**](https://developer.android.com/compose) and [**Room**](https://developer.android.com/training/data-storage/room).
 
 It is designed for developers who are comfortable with Kotlin but new to Jetpack Compose or Room.
 
-By the end of this tutorial, you will have a working app where users can **add, view, edit, and delete notes**, with data stored locally on the device.
+By the end of this article, you will build a lightweight **Note-Taking app** where users can **add, edit, and delete notes**, with data stored locally on the device.
+<br>
+<br>
+![NoteTakingAppGif](https://github.com/user-attachments/assets/72c85aa2-ddf2-428a-8041-b6ea6bc587ba)
 
-## **Quick Navigation**
-
-1. [Introduction](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#introduction)
-2. [Setup](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#setup)
-3. [Create the Database](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#create-the-database)
-4. [Build the UI](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#build-the-ui)
-5. [Add Navigation](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#add-navigation)
-6. [Run the App](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#run-the-app)
-7. [Conclusion](https://github.com/Uticodes/Note-Taking-App/new/main?filename=README.md#conclusion)
-
-
-
-## **Introduction**
 
 Jetpack Compose is Google’s modern, declarative UI toolkit for Android development. It allows you to describe how your user interface should look and behave, automatically updating the screen when the underlying data changes. This eliminates the need for XML layouts and reduces boilerplate code.
 
 Room is Android’s official persistence library built on top of SQLite. It simplifies data storage by providing compile-time query validation, migrations, and coroutine support.
 
-In this tutorial, Jetpack Compose and Room are combined to create a lightweight **Note-Taking app**.
 
-The app will cover these fundamental concepts:
-- **State management** using ViewModel and StateFlow
-- **Data persistence** with Room
-- **Unidirectional data flow**, keeping the UI and data layers cleanly separated
-- **Simple navigation** using Navigation Compose
+## **What you will learn**
+- Set up **Room** to persist notes locally.
+- Built a **responsive UI** with Jetpack Compose.
+- Managed state using **ViewModel** and **Flow**.
+- Added **navigation** between screens.
 
-This guide is beginner-friendly and focuses on practical steps, keeping the app small and straightforward. Once complete, you can extend it by adding features such as search, tagging, or cloud syncing.
+# **What you will need**
+
+- Install the latest **stable version** of Android Studio with Jetpack Compose templates enabled.
+- Kotlin 1.9+ and Compose Compiler.
+- **JDK 17** (required by AGP 8.x).If Android Studio shows a warning saying “AGP requires Java 17,” go to **File ▸ Settings ▸ Build Tools ▸ Gradle** and set **Gradle JDK** to **17**.. ([Android Developers](https://developer.android.com/build/jdks))
+- Android device (Optional if you have emulator)
+
+>**Note**:
+>If Android Studio shows a warning saying “AGP requires Java 17”, go to
+>File ▸ Settings ▸ Build Tools ▸ Gradle,
+>and set Gradle JDK to 17.
 
 ## **Setup**
 
 ### Create a New Project
 
 1. Open Android Studio and create a new project.
+   <br>
+   <img width="798" height="250" alt="Screenshot 2025-09-24 at 7 31 53 PM" src="https://github.com/user-attachments/assets/a4fad1e1-e129-4357-8699-c869d783a87b" />
+
 2. Choose **Empty Compose Activity**.
+  <img width="901" height="468" alt="Screenshot 2025-09-24 at 7 37 40 PM" src="https://github.com/user-attachments/assets/9c321432-99eb-44bd-9b32-515bc5af00b0" />
+
 3. Name the project `NoteTakingApp` and click **Finish**.
+   <img width="901" height="679" alt="Screenshot 2025-09-24 at 7 39 26 PM" src="https://github.com/user-attachments/assets/40ea8319-9870-487c-8faa-6c19bce3b0d1" />
+
 4. Wait for Gradle to complete the initial sync.
 
 ### Add Dependencies
@@ -136,6 +143,8 @@ dependencies {
 
 
 Finally, click **Sync Now** when prompted.
+<br>
+  <img width="284" height="127" alt="Screenshot 2025-09-24 at 5 01 45 PM" src="https://github.com/user-attachments/assets/94cc4ffe-1c3d-4b2c-9aef-4eab43199ad7" />
 
 
 
@@ -174,6 +183,7 @@ Create a `NoteDao.kt` file in the same `data/local` package.
 ```kotlin
 @Dao
 interface NoteDao {
+    // Get all notes, ordered by latest first
     @Query("SELECT * FROM notes ORDER BY timestamp DESC")
     fun getAllNoteEntities(): Flow<List<NoteEntity>>
 
@@ -245,14 +255,14 @@ Create `NoteModel.kt` file in the `domain/model`
 
 `NoteModel` represents the core note data used throughout the app
     
-    ```kotlin
-    data class NoteModel(
-        val id: Int = 0,
-        val title: String,
-        val content: String,
-        val timestamp: Long
-    )
-    ```
+  ```kotlin
+  data class NoteModel(
+    val id: Int = 0,
+    val title: String,
+    val content: String,
+    val timestamp: Long
+  )
+  ```
     
 Create `NotesUseCase.kt` file in the `domain/usecase`
 
@@ -511,9 +521,9 @@ class NoteDetailViewModel(
 
 The app has two main screens:
 
-Notes List Screen – Displays all saved notes.
+`NotesScreen` – Displays all saved notes.
 
-Note Detail Screen – Allows adding or editing a note.
+`NoteDetailScreen` – Allows adding or editing a note.
 
 
 ### Notes List Screen
@@ -576,7 +586,6 @@ fun NotesScreen(viewModel: NotesViewModel, onAddNote: () -> Unit, onNoteClick: (
 
 ```
 
-> 💡 Tip:
 > 
 > 
 > Using `Flow` with Room allows the `LazyColumn` to automatically refresh whenever data changes.
@@ -702,32 +711,44 @@ class MainActivity : ComponentActivity() {
 ## **Run the App**
 
 1. Connect an Android device or start an emulator.
+   <br>
+   <img width="269" height="202" alt="Screenshot 2025-09-24 at 4 44 27 PM" src="https://github.com/user-attachments/assets/8e2d16aa-c123-4039-9ae2-2083ba65617b" />
+
 2. In Android Studio, click **Run ▶**.
-3. Add a note by tapping the **+ button**.
-4. View it in the list.
-5. Tap the back arrow to return to the list.
+   <br>
+   <img width="372" height="50" alt="Screenshot 2025-09-24 at 4 46 24 PM" src="https://github.com/user-attachments/assets/9bfc65ae-0c2d-431e-8d86-176c47ef6e36" />
+
+4. Add a note by tapping the **+ button**.
+   <img width="1080" height="2340" alt="NoteAppEmpty Edit" src="https://github.com/user-attachments/assets/7c59e7eb-9b8b-4c0b-9abf-513f54a439b3" />
+
+5. Enter title and content, then tap Save icon ✓. You will jump back to the list with your new note visible.
+   <img width="403" height="269" alt="Screenshot 2025-09-24 at 5 20 20 PM" src="https://github.com/user-attachments/assets/2de8531e-be16-4fd2-9658-44b5c327565f" />
+
+6. Tap a note from the list of notes to view or edit, or use the trash icon to delete a note.
+   <img width="397" height="268" alt="Screenshot 2025-09-24 at 5 23 51 PM" src="https://github.com/user-attachments/assets/d27c2927-bb04-4d49-a364-f74f2bf5aa0d" />
+
+7. Tap the back arrow to return to the list.
 
 If you edit or delete a note, the list will automatically update in real-time.
 
----
 
 ## **Conclusion**
 
-In this guide, you have:
+Congratulations! You have successfully:
 
-- Set up **Room** to persist notes locally.
+- Set up **Room** to persist notes locally, edit and delete notes.
 - Built a **responsive UI** with Jetpack Compose.
 - Managed state using **ViewModel** and **Flow**.
 - Added **navigation** between screens.
 
-This app forms a solid foundation for more advanced features, such as:
+There's more you could add to the app, such as:
 
 - Search and filtering
 - Note pinning or colour coding
 - Syncing notes to the cloud with Firebase or other services
 - Writing unit tests for the ViewModel and DAO
 
-By mastering these fundamentals, you are now prepared to build scalable, modern Android applications with clean architecture and a seamless user experience.
+Feel free to continue refining your app, or take it a step further by creating something new and even more advanced with Compose and Room.
 
 ---
 
