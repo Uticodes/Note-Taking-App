@@ -721,7 +721,7 @@ class MainActivity : ComponentActivity() {
 4. Add a note by tapping the **+ button**.
    <img width="1080" height="2340" alt="NoteAppEmpty Edit" src="https://github.com/user-attachments/assets/7c59e7eb-9b8b-4c0b-9abf-513f54a439b3" />
 
-5. Enter title and content, then tap Save icon ✓. You will jump back to the list with your new note visible.
+5. Enter title and content, then tap Save icon **✓**. You will jump back to the list with your new note visible.
    <img width="403" height="269" alt="Screenshot 2025-09-24 at 5 20 20 PM" src="https://github.com/user-attachments/assets/2de8531e-be16-4fd2-9658-44b5c327565f" />
 
 6. Tap a note from the list of notes to view or edit, or use the trash icon to delete a note.
