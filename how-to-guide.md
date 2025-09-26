@@ -34,7 +34,7 @@ Room is Android’s official persistence library built on top of SQLite. It simp
 >File ▸ Settings ▸ Build Tools ▸ Gradle,
 >and set Gradle JDK to 17.
 
-## **Setup**
+## **Project Setup**
 
 ### Create a New Project
 
