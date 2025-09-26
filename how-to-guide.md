@@ -218,7 +218,7 @@ interface NoteDao {
 
 ### 3. Database
 
-Create an `AppDatabase.kt` file in `data/local`.
+Create an `AppDatabase.kt` file in `data/local` package.
 
 ```kotlin
 @Database(entities = [NoteEntity::class], version = 1, exportSchema = false)
@@ -251,7 +251,7 @@ abstract class AppDatabase : RoomDatabase() {
 ## **Create the model**
 The domain layer consists of three main components: **Model**, **UseCase**, and **Repository**.
     
-Create `NoteModel.kt` file in the `domain/model` 
+Create `NoteModel.kt` file in the `domain/model` package.
 
 `NoteModel` represents the core note data used throughout the app
     
@@ -264,7 +264,7 @@ Create `NoteModel.kt` file in the `domain/model`
   )
   ```
     
-Create `NotesUseCase.kt` file in the `domain/usecase`
+Create `NotesUseCase.kt` file in the `domain/usecase` package.
 
 `NotesUseCase` is a single entry point to all operations on notes (get/add/update/delete)
     
@@ -287,7 +287,7 @@ class NotesUseCase(private val repo: NoteRepository) {
 
 ## **Data → Domain glue**
 
-Create `NoteRepository.kt` file in `data/repository`
+Create `NoteRepository.kt` file in `data/repository` package.
 
 `NoteRepository` (interface) and `NoteRepositoryImpl` (maps NoteEntities ⇄ NoteModels)
     
