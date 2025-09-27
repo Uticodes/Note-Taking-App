@@ -142,8 +142,6 @@ Finally, click **Sync Now** when prompted.
 
 ## **Quick tour of the app architecture**
 
-If you are new to MVVM, this short primer is helpful: [Model–View–ViewModel (MVVM) in Android — GeeksforGeeks](https://www.geeksforgeeks.org/android/mvvm-model-view-viewmodel-architecture-pattern-in-android/)
-
 This app follows a traditional clean architecture structure:
 - Data layer
   - NoteEntity
@@ -161,6 +159,9 @@ This app follows a traditional clean architecture structure:
   - NotesScreen and NoteDetailScreen
 
 This separation of concerns keeps each layer focused and allows changes in one layer without impacting the other layers.
+
+> If you are new to MVVM, this short primer is helpful: [Model–View–ViewModel (MVVM) in Android — GeeksforGeeks](https://www.geeksforgeeks.org/android/mvvm-model-view-viewmodel-architecture-pattern-in-android/)
+>
 
 
 ## **Create the Database**
