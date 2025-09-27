@@ -75,7 +75,7 @@ room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ```
 
-> **`androidx-room-ktx`** gives coroutines and Flow support; **`androidx-room-compiler`** generates DAOs and entities.
+> **`androidx-room-ktx`** gives coroutines and Flow support; **`androidx-room-compiler`** generates DAOs (Data Access Object) and entities.
 > 
 
 Open **`project/build.gradle`** file and add the **`KSP`** and **`Room`** plugin.
@@ -140,36 +140,24 @@ Finally, click **Sync Now** when prompted.
   <img width="284" height="127" alt="Screenshot 2025-09-24 at 5 01 45 PM" src="https://github.com/user-attachments/assets/94cc4ffe-1c3d-4b2c-9aef-4eab43199ad7" />
 
 
-## **Quick tour of the app architecture** 
+## **Quick tour of the app architecture**
 
-This app follows a traditional, time-tested structure:
+If you are new to MVVM, this short primer is helpful: [Model–View–ViewModel (MVVM) in Android — GeeksforGeeks](https://www.geeksforgeeks.org/android/mvvm-model-view-viewmodel-architecture-pattern-in-android/)
 
+This app follows a traditional clean architecture structure:
 - Data layer
-
   - NoteEntity
-
   - NoteDao
-
   - AppDatabase
-
 - Domain layer
-
-  - NoteModel 
-
+  - NoteModel
   - NotesUseCase
-
 - Data → Domain glue
-
   - NoteRepository and NoteRepositoryImpl
-
   - Mapper utility
-
 - Presentation
-
   - NotesViewModel
-
   - NoteDetailViewModel
-
   - NotesScreen and NoteDetailScreen
 
 This separation of concerns keeps each layer focused and allows changes in one layer without impacting the other layers.
