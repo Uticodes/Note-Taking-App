@@ -16,23 +16,20 @@ Jetpack Compose is Google’s modern, declarative UI toolkit for Android develop
 Room is Android’s official persistence library built on top of SQLite. It simplifies data storage by providing compile-time query validation, migrations, and coroutine support.
 
 
-## **What you will learn**
+## **What you will build**
 - Set up **Room** to persist notes locally.
 - Built a **responsive UI** with Jetpack Compose.
-- Managed state using **ViewModel** and **Flow**.
-- Added **navigation** between screens.
+- Manage state using **ViewModel** and **Flow**.
+- Add **navigation** between screens.
 
 ## **What you will need**
 
-- Install the latest **stable version** of Android Studio with Jetpack Compose templates enabled.
+- Basic Android development knowledge
+- The latest **stable version** of Android Studio with Jetpack Compose templates enabled.
 - Kotlin 1.9+ and Compose Compiler.
 - **JDK 17** (required by AGP 8.x).If Android Studio shows a warning saying “AGP requires Java 17,” go to **File ▸ Settings ▸ Build Tools ▸ Gradle** and set **Gradle JDK** to **17**.. ([Android Developers](https://developer.android.com/build/jdks))
 - Android device (Optional if you have emulator)
 
->**Note**:
->If Android Studio shows a warning saying “AGP requires Java 17”, go to
->File ▸ Settings ▸ Build Tools ▸ Gradle,
->and set Gradle JDK to 17.
 
 ## **Project Setup**
 
@@ -78,10 +75,10 @@ room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ```
 
-> **`androidx-room-ktx`** gives coroutines/Flow support; **`androidx-room-compiler`** generates DAOs/entities.
+> **`androidx-room-ktx`** gives coroutines and Flow support; **`androidx-room-compiler`** generates DAOs and entities.
 > 
 
-Open **`project/build.gradle`** file and add the **`KSP`** and **`R**oom` plugin.
+Open **`project/build.gradle`** file and add the **`KSP`** and **`Room`** plugin.
 
 ```kotlin
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -91,10 +88,6 @@ plugins {
     alias(libs.plugins.room) apply false
 }
 ```
-
-> **Why** KSP? KSP runs the Room compiler, the Room plugin coordinates schema generation and migration checks during builds.
-KSP is faster and more efficient than KAPT for generating Room database code.
-> 
 
 
 Open `app/build.gradle` and add the following dependencies:
@@ -146,6 +139,40 @@ Finally, click **Sync Now** when prompted.
 <br>
   <img width="284" height="127" alt="Screenshot 2025-09-24 at 5 01 45 PM" src="https://github.com/user-attachments/assets/94cc4ffe-1c3d-4b2c-9aef-4eab43199ad7" />
 
+
+## **Quick tour of the app architecture** 
+
+This app follows a traditional, time-tested structure:
+
+- Data layer
+
+  - NoteEntity
+
+  - NoteDao
+
+  - AppDatabase
+
+- Domain layer
+
+  - NoteModel 
+
+  - NotesUseCase
+
+- Data → Domain glue
+
+  - NoteRepository and NoteRepositoryImpl
+
+  - Mapper utility
+
+- Presentation
+
+  - NotesViewModel
+
+  - NoteDetailViewModel
+
+  - NotesScreen and NoteDetailScreen
+
+This separation of concerns keeps each layer focused and allows changes in one layer without impacting the other layers.
 
 
 ## **Create the Database**
